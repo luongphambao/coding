@@ -38,3 +38,13 @@ class Solution:
         # Store the final value of result 
         result += count * (count + 1) // 2
         return result%mode
+
+class Solution(object):
+    def countHomogenous(self, s):
+        MOD  = 10**9  + 7
+        ans = 0
+        for k, grp in groupby(s):
+            w  = len(list(grp))
+            ans += w * (w + 1) // 2
+            ans %= MOD
+        return ans % (10**9 + 7)
