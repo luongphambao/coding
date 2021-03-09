@@ -4,7 +4,7 @@ def trans(arr, r,c):
     if len(flat) != r * c:
         return arr
     for i in range(len(flat)):
-        ans[(i+i//c)//r][i%c]=flat[i]
+        ans[i//c][i%c]=flat[i]
     return ans
 m , n = [int(i) for i in input().split()]
 r, c = [int(i) for i in input().split()]
