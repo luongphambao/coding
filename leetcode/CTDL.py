@@ -1,11 +1,11 @@
-from sys import stdin,stdout
+from sys import stdin
 def binarySearch(arr,left,right,x):
     if arr[right]<=x:
         return right
     if arr[left]>x:
         return left
     mid=(left+right)//2 
-    if (arr[mid] <= x and arr[mid + 1] > x) : 
+    if (arr[mid] <= x and arr[mid + 1] >= x) : 
         return mid  
     
     if(arr[mid] < x) : 
@@ -14,7 +14,11 @@ def binarySearch(arr,left,right,x):
     return binarySearch(arr,left, mid - 1, x)
 
 def printKclosest(arr, x, k, n) : 
-      
+    if arr[0]>=x:
+        return str(arr[0])+" "+str(arr[k-1])
+    if arr[-1]<=x:
+        s=arr[-k:]
+        return str(s[0])+" "+str(s[-1])
     l = binarySearch(arr, 0, n - 1, x) 
     r = l + 1 
     count = 0
@@ -34,22 +38,14 @@ def printKclosest(arr, x, k, n) :
             r += 1
         count += 1
   
-    while (count < k and l >= 0) : 
-        a.append(arr[l])  
-        l -= 1
-        count += 1 
-    while (count < k and r < n) :  
-        b.append(arr[r])  
-        r += 1
-        count += 1
-    c=a[::-1]+b 
-    return (str(c[0])+" "+str(c[-1]))
-n=int(input())
-arr = list(map(int,input().strip().split()))[:n]
-for i in range(n):
-    a = [int(i) for i in input().split()]
+    return (str(arr[l+1])+" "+str(arr[r-1]))
+n = int(stdin.readline())
+arr = [int(i) for i in stdin.readline().split()]
+a=[1]
+while (a!=[]):
+    a = [int(i) for i in stdin.readline().split()]
     if a == []:
         break
     k, x = a[0], a[1]
-    printKclosest(a,x,k,n)
-    a=[]
+    print(printKclosest(arr,x,k,n))
+    
