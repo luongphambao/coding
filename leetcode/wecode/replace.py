@@ -1,4 +1,5 @@
 from collections import deque
+import copy
 n, m, c = [int(i) for i in input().split()]
 board = []
 for h in range(n):
@@ -7,12 +8,14 @@ for h in range(n):
 move = list(i for i in input())
 class Snake:
     def __init__(self):
+        self.snake = deque()
         def createSnake(snake, i,j):
             temp = deque()
             temp.append((i, j - 1))
             temp.append((i, j + 1))
-            temp.append((i - 1, j))
             temp.append((i + 1, j))
+            temp.append((i - 1, j))
+            
             while temp:
                 if temp[0][0] < 0 or temp[0][0] >= n or temp[0][1] < 0 or temp[0][1] >= m:
                     temp.popleft()
@@ -21,12 +24,17 @@ class Snake:
                 elif (temp[0][0],temp[0][1]) in snake:
                     temp.popleft()
                 else:
-                    break
+                     break
             if len(temp) == 0:
-                return (-1, -1)
-            return (temp[0][0],temp[0][1])
-
-        self.snake = deque()
+                return snake
+            snake_result=deque()
+            for state in temp:
+                new_snake=copy.deepcopy(snake)
+                new_snake.append((state[0],state[1]))
+                new_snake=createSnake(snake,state[0],state[1])
+                if len (snake_result)<len(new_snake):
+                    snake_result=new_snake
+            return snake_result
         for i in range(n):
             for j in range(m):
                 if board[i][j] in ['<','^','>','v']:
@@ -36,11 +44,13 @@ class Snake:
                 break
         i,j = self.snake[0][0], self.snake[0][1]
         self.state = board[i][j]
-        while True:
-            i,j = createSnake(self.snake,i,j)
-            if (i,j) == (-1,-1):
-                break
-            self.snake.append((i,j))
+        self.snake=createSnake(self.snake,i,j)
+       
+            
+            
+
+        
+        
     def TurnRight(self):
         if self.state == '<':
             self.state = '^'
@@ -85,7 +95,7 @@ class Snake:
                     board[i][j] = '.'
                 else:
                     if (i,j) == (self.snake[0][0], self.snake[0][1]):
-                        board[i][j] = snake.state
+                        board[i][j] = '*'
                     else: board[i][j] = '*'
     def DrawDead(self):
         for i in range(n):
