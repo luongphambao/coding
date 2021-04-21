@@ -1,7 +1,7 @@
 def TrinarySearch(arr, left, right, x, dem, arr1):
     if left <= right:
-        i = left + (right - left) // 3
-        j = right - (right - left) // 3
+        i = (right +2*left) // 3
+        j = (right*2 + left) // 3+1
         if x == arr[i]:
             arr1.append(dem)
             return i

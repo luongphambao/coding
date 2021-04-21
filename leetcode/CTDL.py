@@ -49,3 +49,5 @@ while (a!=[]):
     k, x = a[0], a[1]
     print(printKclosest(arr,x,k,n))
     
+a='12334\n'
+print()

@@ -1,6 +1,13 @@
 from sys import stdin
 s=stdin.readline()
-arr=s.split(" ")
+arr=[]
+index=0
+n1=len(s)
+while(index<n1):
+    if s[index]!=" ":
+        a=s.index(" ",index+1)
+        arr.append(s[index:a+1])
+        break
 m=int(input())
 n=len(arr)
 if len(s)<=m:
