@@ -1,0 +1,2 @@
+https://shopee.vn/api/v2/item/get?itemid=370157993&shopid=8563637
+https://shopee.vn/api/v2/item/get_ratings?shopid=204574220&itemid=7729982955&limit=100&offset=0
